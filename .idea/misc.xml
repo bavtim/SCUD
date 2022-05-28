@@ -4,8 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/admin/AndroidStudioProjects/SCUD/app/src/main/res/layout/activity_login.xml" value="0.264" />
-        <entry key="..\:/Users/admin/AndroidStudioProjects/SCUD/app/src/main/res/layout/activity_main.xml" value="0.16168478260869565" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/SCUD/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/SCUD/app/src/main/res/layout/activity_nfc_card_emulation_menu.xml" value="0.264" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/SCUD/app/src/main/res/layout/activity_splash_one.xml" value="0.16" />
+        <entry key="..\:/Users/admin/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/activity_list_item.xml" value="0.22735507246376813" />
+        <entry key="..\:/Users/admin/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.22735507246376813" />
       </map>
     </option>
   </component>

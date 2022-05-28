@@ -24,7 +24,8 @@ import retrofit2.http.Headers
 data class UserInfo (
     @SerializedName("token") val token: String?,
     @SerializedName("login") val login: String?,
-    @SerializedName("password") val password: String?
+    @SerializedName("password") val password: String?,
+    @SerializedName("id") val userid: String?
 )
 interface RestApi {
 
@@ -37,7 +38,7 @@ object ServiceBuilder {
     private val client = OkHttpClient.Builder().build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://45.90.217.136/") // change this IP for testing by your actual machine IP
+        .baseUrl("http://45.90.217.136:8000/") // change this IP for testing by your actual machine IP
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()
@@ -96,6 +97,7 @@ class LoginActivity : AppCompatActivity() {
     fun Login(view: View?) {
         val apiService = RestApiService()
         val userInfo = UserInfo(
+            userid = null,
             token = null,
             login=username!!.text.toString(),
             password = password!!.text.toString())
@@ -104,15 +106,18 @@ class LoginActivity : AppCompatActivity() {
         apiService.LoginUser(userInfo) {
 
             if (it?.token != null) {
-                Log.i("pizda",token)
+                Log.d("SERVICE12312312312a", it.toString())
                 Toast.makeText(applicationContext, "Вход выполнен!", Toast.LENGTH_SHORT).show()
 
                 // Выполняем переход на другой экран:
                 val intent = Intent( this, MainActivity::class.java)
+                intent.putExtra("login", username!!.text.toString());
+                intent.putExtra("password", password!!.text.toString());
+                intent.putExtra("token", it.token);
+                intent.putExtra("userid", it.userid);
                 startActivity(intent)
 
             } else {
-                Log.e("pizda","pizda")
                 Toast.makeText(applicationContext, "Неправильные данные!", Toast.LENGTH_SHORT).show()
                 numberOfRemainingLoginAttempts--
 
@@ -132,7 +137,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
-        // Если введенные логин и пароль будут словом "admin",
+        // Если введенные логин и пароль будут словом "admin",a
         // показываем Toast сообщение об успешном входе:
 
 
