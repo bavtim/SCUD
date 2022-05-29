@@ -11,4 +11,6 @@
     <string name="login_failed">"Login failed"</string>
 	<string name="servicedesc">NFC card emulation service</string>
     <string name="aiddescription">nfc aid</string>
+    <string name="classroom_name">Аудитория:</string>
+    <string name="classroom_type">Тип:</string>
 </resources>
