@@ -34,7 +34,7 @@ class NfcCardEmulation : HostApduService() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        NFC_TOKEN += intent!!.extras!!.getString("NFC_TOKEN")
+        NFC_TOKEN = "9000"+intent!!.extras!!.getString("NFC_TOKEN")
         Log.d("SERVICE111", NFC_TOKEN)
         return Service.START_STICKY
     }

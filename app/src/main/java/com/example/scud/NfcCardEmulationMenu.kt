@@ -17,18 +17,31 @@ class NfcCardEmulationMenu : AppCompatActivity() {
     private val nfcAdapter: NfcAdapter? by lazy {
         NfcAdapter.getDefaultAdapter(this)
     }
-
+    var login: String? = null
+    var password: String? = null
+    var token: String?  = null
+    var userid: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        login= intent.getStringExtra("login")
+        password= intent.getStringExtra("password") // 2
+        token = intent.getStringExtra("token") // 2
+        userid = intent.getStringExtra("userid") // 2
         Log.d("SERVICE", "ServiceStarted")
-        val intent = Intent(this, NfcCardEmulation::class.java)
-        intent.putExtra("NFC_TOKEN", "AFAFAF");
-        startService(intent)
+        val intentNfc = Intent(this, NfcCardEmulation::class.java)
+        intentNfc.putExtra("NFC_TOKEN", intent.getStringExtra("classroomKey"));
+        Log.d("btn", intent.getStringExtra("classroomKey").toString())
+        startService(intentNfc)
         setContentView(com.example.scud.R.layout.activity_nfc_card_emulation_menu)
     }
 
     fun NFCsend(view: View) {
-        startActivity(Intent(this,MainActivity::class.java))
+        val intent = Intent( this, MainActivity::class.java)
+        intent.putExtra("login", login);
+        intent.putExtra("password", password);
+        intent.putExtra("token", token);
+        intent.putExtra("userid", userid);
+        startActivity(intent)
         }
 }
 

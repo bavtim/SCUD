@@ -5,32 +5,44 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class ClassRoomRecyclerAdapter(private val dataSet: List<ClassInfo>) :
-    RecyclerView.Adapter<ClassRoomRecyclerAdapter.ViewHolder>() {
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textViewClassRoom: TextView = itemView.findViewById(R.id.textViewClassRoom)
-        val textViewClassRoomType: TextView = itemView.findViewById(R.id.textViewClassRoomType)
+interface OnItemClickListener{
+    fun onItemClicked(classInfo: ClassInfo)
+}
+class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+{
+    val textViewClassRoom: TextView = itemView.findViewById(R.id.textViewClassRoom)
+    val textViewClassRoomType: TextView = itemView.findViewById(R.id.textViewClassRoomType)
+
+    fun bind(classInfo: ClassInfo,clickListener: OnItemClickListener)
+    {
+
+        textViewClassRoom.text = textViewClassRoom.text.toString() + " " + classInfo.classroomName
+        textViewClassRoomType.text = textViewClassRoomType.text.toString() + " " + classInfo.classroomType
+
+        itemView.setOnClickListener {
+
+            clickListener.onItemClicked(classInfo)
+        }
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        // Create a new view, which defines the UI of the list item
-        val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.row_item_classroom, viewGroup, false)
+}
+class ClassRoomRecyclerAdapter(var dataSet:List<ClassInfo>, val itemClickListener: MainActivity):RecyclerView.Adapter<MyHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, position: Int): MyHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.row_item_classroom,parent,false)
+        return MyHolder(view)
 
-        return ViewHolder(view)
+
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        Log.d("RETROFIT: ", dataSet[position].classroomName?: "N/A")
-        Log.d("RETROFIT: ", dataSet[position].classroomType?: "N/A")
-        viewHolder.textViewClassRoom.text = viewHolder.textViewClassRoom.text.toString() + " " + dataSet[position].classroomName
-        viewHolder.textViewClassRoomType.text = viewHolder.textViewClassRoomType.text.toString() + " " + dataSet[position].classroomType
+    override fun getItemCount(): Int {
+        return dataSet.size
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = dataSet.size
-
+    override fun onBindViewHolder(myHolder: MyHolder, position: Int) {
+        val classInfo = dataSet[position]
+        myHolder.bind(classInfo,itemClickListener)
+    }
 }
